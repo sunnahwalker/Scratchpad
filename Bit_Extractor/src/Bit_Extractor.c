@@ -2,9 +2,9 @@
  ============================================================================
  Name        : Bit_Extractor.c
  Author      : Ahsan Uddin
- Version     :
+ Version     : 3/8/2017
  Copyright   : Sunnahwalker Production
- Description : Hello World in C, Ansi-style
+ Description : Test a bit for 0/1 bit
  ============================================================================
  */
 
@@ -12,6 +12,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <assert.h>
+
+#define BITS_IN_BYTE	8
 
 bool bit_test(int var, int bit_pos);
 
@@ -35,7 +37,7 @@ bool bit_test(int var, int bit_pos) {
 
 	bool ret = false;
 
-	assert(bit_pos < (sizeof(int) * 8));
+	assert(bit_pos < (sizeof(int) * BITS_IN_BYTE));
 
 	if ((var >> bit_pos) & 0x1) {
 		ret = true;
