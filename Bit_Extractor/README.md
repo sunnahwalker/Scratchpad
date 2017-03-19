@@ -1,12 +1,10 @@
 # Bit Extractor
 
- ============================================================================
  Name        : Bit_Extractor.c
  Author      : Ahsan Uddin
  Version     : 3/8/2017
  Copyright   : Sunnahwalker Production
  Description : Test a bit for 0/1 bit
- ============================================================================
 
 Code snippet for:
 
