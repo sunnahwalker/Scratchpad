@@ -1,11 +1,11 @@
 # Stack Test
 
- Name        : Stack_Test.c
- Author      : Ahsan Uddin
- Version     :
- Date        : March 08, 2017
- Copyright   : Sunnahwalker Production 2017
- Description : Check the direction of stack growth
+Project     : Stack Test
+Author      : Ahsan Uddin
+Version     :
+Date        : March 08, 2017
+Copyright   : Sunnahwalker Production 2017
+Description : Check the direction of stack growth
 
 Code snippet for checking whether a stack grows or shrinks in memory. 
 
