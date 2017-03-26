@@ -8,8 +8,6 @@
 #ifndef BUILDCFG_H_
 #define BUILDCFG_H_
 
-#include <time.h>
-
 typedef enum {
 	STATUS_OK,
 	STATUS_ERROR
@@ -18,6 +16,10 @@ typedef enum {
 #define noUNIT_TEST_PRINTS
 
 #define MULTITHREAD
+
+#ifdef MULTITHREAD
+#define MULTITHREAD_MERGE
+#endif
 
 #ifdef MULTITHREAD
 #define THREAD_PRINT(str,s...) //PRINTF(str,##s)

@@ -5,7 +5,10 @@
 //		Author: Ahsan Uddin
 //		Date: March 6th, 2017
 //		Description:
-//
+//			1. Create 1000 threads and do unit test on them
+//			2. Start merge sort using the threads
+//				a. Get new threads and use them for each new sort
+//				b. Once 2 sorts are done (wait for thread join), do merge
 //
 //////////////////////////////////////////////////////////////
 

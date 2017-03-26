@@ -1,13 +1,22 @@
-//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 //		Multithreaded Merge Sort App
 //		Final project - CMPE 180-94 (Spring 2017)
 //		Author: Ahsan Uddin
 //		Date: March 9th, 2017
 //		Description:
+//			1. Create 1000 threads and do unit test on them
+//			2. Start merge sort using the threads
+//				a. Get new threads and use them for each new sort
+//				b. Once 2 sorts are done (wait for thread join), do merge
 //
 //
-//////////////////////////////////////////////////////////////
+//		Note: The merge sort code itself is copied from Tutorialspoint
+//		(https://www.tutorialspoint.com/data_structures_algorithms/merge_sort_program_in_c.htm)
+//		The intent of this code is to demo the multithreaded
+//		behavior and not the merge sort code itself
+//
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "BuildCfg.h"
@@ -19,7 +28,20 @@ extern int *sorted_array;
 extern thread_t local_threads[];
 #endif
 
+#ifndef MULTITHREAD_MERGE
 void merging(int *arr, int low, int mid, int high) {
+#else
+void *merging(void * input_params) {
+	int *arr, low, mid, high;
+
+	thread_param_t *input_merge_param = (thread_param_t *) input_params;
+
+	arr  = input_merge_param->array;
+	low  = input_merge_param->param1;
+	mid  = input_merge_param->param2;
+	high = input_merge_param->param3;
+#endif
+
    int l1, l2, i;
 
    for(l1 = low, l2 = mid + 1, i = low; l1 <= mid && l2 <= high; i++) {
@@ -38,8 +60,13 @@ void merging(int *arr, int low, int mid, int high) {
    for(i = low; i <= high; i++)
       arr[i] = sorted_array[i];
 
+#ifndef MULTITHREAD_MERGE
    return;
+#else
+   return NULL;
+#endif
 }
+
 
 #ifndef MULTITHREAD								// Do single threaded as normal
 void sort(int *arr, int low, int high) {
@@ -58,13 +85,13 @@ void sort(int *arr, int low, int high) {
 #else	//MULTITHREAD							// Lets burn some threads, shall we?
 void* sort(void * input_params) {
 
-   int thread_1, thread_2;
-   int stat = 1;
+	int thread_1, thread_2, thread_3;
+	int stat = 1;
 	int low = 0;
 	int mid = 0;
 	int high = 0;
-   thread_param_t sort_param1, sort_param2;
-   thread_param_t *input_sort_param = (thread_param_t *) input_params;
+	thread_param_t sort_param1, sort_param2, merge_param;
+	thread_param_t *input_sort_param = (thread_param_t *) input_params;
 
 	low = input_sort_param->param1;
 
@@ -97,27 +124,42 @@ void* sort(void * input_params) {
 
 		stat = pthread_join(local_threads[thread_1].thread,NULL);
 		if (stat) {
-			err(stat, "Thread Join FATAL error: ");
+			err(stat, "Sort Thread Join FATAL error: ");
 			assert(false);
 		}
 		stat = pthread_join(local_threads[thread_2].thread,NULL);
 		if (stat) {
-			err(stat, "Thread Join FATAL error: ");
+			err(stat, "Sort Thread Join FATAL error: ");
 			assert(false);
 		}
 
 		free_thread(thread_1);
 		free_thread(thread_2);
 
+
+#ifdef MULTITHREAD_MERGE
+		merge_param.array = input_sort_param->array;
+		merge_param.param1 = low;
+		merge_param.param2 = mid;
+		merge_param.param3 = high;
+
+		//Allocate the third thread
+		thread_3 = get_thread();
+		stat = pthread_create(&(local_threads[thread_3].thread),NULL,merging,(void*) &merge_param);
+
+		// Proceed if thread creation was ok
+		assert(stat == EXIT_SUCCESS);
+
+		stat = pthread_join(local_threads[thread_2].thread,NULL);
+		if (stat) {
+			err(stat, "Merge Thread Join FATAL error: ");
+			assert(false);
+		}
+#else
 		merging(input_sort_param->array, low, mid, high);
+#endif
+	}
 
-		//pthread_exit(EXIT_SUCCESS);
-		return NULL;
-   }
-   else {
-	  //pthread_exit(EXIT_SUCCESS);
-      return NULL;
-   }
-
+	return NULL;
 }
 #endif	//MULTITHREAD

@@ -31,6 +31,7 @@ typedef struct{
 	int *array;
 	int param1;
 	int param2;
+	int param3;
 	//int thread_id;
 } thread_param_t;
 //#endif
