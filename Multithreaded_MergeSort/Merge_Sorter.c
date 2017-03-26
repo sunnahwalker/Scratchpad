@@ -155,6 +155,8 @@ void* sort(void * input_params) {
 			err(stat, "Merge Thread Join FATAL error: ");
 			assert(false);
 		}
+
+		free_thread(thread_3);
 #else
 		merging(input_sort_param->array, low, mid, high);
 #endif

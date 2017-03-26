@@ -83,13 +83,15 @@ int get_thread() {
 	static int current_allocation = 0;
 
 	int allocated_thread = 0;
-
+#ifdef CRITICAL_SECTION
 	pthread_mutex_lock(&thread_alloc_mutex);
+#endif
 	allocated_thread = current_allocation++;
 	assert((current_allocation < (MAX_THREADS - 1)) && (local_threads[current_allocation].busy == false));
 	local_threads[allocated_thread].busy = true;
+#ifdef CRITICAL_SECTION
 	pthread_mutex_unlock(&thread_alloc_mutex);
-
+#endif
 	THREAD_PRINT("Allocated Thread: %d\n", allocated_thread);
 	return (allocated_thread);
 }

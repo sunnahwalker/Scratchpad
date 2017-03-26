@@ -18,7 +18,8 @@ typedef enum {
 #define MULTITHREAD
 
 #ifdef MULTITHREAD
-#define MULTITHREAD_MERGE
+#define CRITICAL_SECTION			// Flag for Mutex
+#define MULTITHREAD_MERGE			// Flag for seperate thread for Merging
 #endif
 
 #ifdef MULTITHREAD
