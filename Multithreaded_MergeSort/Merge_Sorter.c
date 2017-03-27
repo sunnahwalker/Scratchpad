@@ -150,7 +150,7 @@ void* sort(void * input_params) {
 		// Proceed if thread creation was ok
 		assert(stat == EXIT_SUCCESS);
 
-		stat = pthread_join(local_threads[thread_2].thread,NULL);
+		stat = pthread_join(local_threads[thread_3].thread,NULL);
 		if (stat) {
 			err(stat, "Merge Thread Join FATAL error: ");
 			assert(false);

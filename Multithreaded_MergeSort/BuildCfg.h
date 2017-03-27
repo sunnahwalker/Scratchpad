@@ -13,11 +13,14 @@ typedef enum {
 	STATUS_ERROR
 }Status_t;
 
+#define SORT_SIZE 10
+
 #define noUNIT_TEST_PRINTS
 
 #define MULTITHREAD
 
 #ifdef MULTITHREAD
+#define	noGREEDY					// If there are huge pool of threads!
 #define CRITICAL_SECTION			// Flag for Mutex
 #define MULTITHREAD_MERGE			// Flag for seperate thread for Merging
 #endif

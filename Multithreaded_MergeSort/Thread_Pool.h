@@ -18,15 +18,18 @@
 //#include "Thread_Pool.h"
 #include "BuildCfg.h"
 
-#define MAX_THREADS 1000
+#ifdef GREEDY
+#define MAX_THREADS (SORT_SIZE*10)
+#else
+#define MAX_THREADS (SORT_SIZE*2)
+#endif
 
 typedef struct{
-	//char* name;
 	pthread_t thread;
 	bool busy;
 }thread_t;
 
-//#ifdef MULTITHREAD
+#ifdef MULTITHREAD
 typedef struct{
 	int *array;
 	int param1;
@@ -34,7 +37,7 @@ typedef struct{
 	int param3;
 	//int thread_id;
 } thread_param_t;
-//#endif
+#endif
 
 void thread_init();
 Status_t thread_unit_test();

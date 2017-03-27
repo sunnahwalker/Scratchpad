@@ -20,9 +20,6 @@
 #include "BuildCfg.h"
 #include "Thread_Pool.h"
 
-// Local defines
-#define SORT_SIZE 10
-
 int a[SORT_SIZE] = { 27, 14, 19, 26, 10, 31, 33, 44, 42, 35 };
 //int a[SORT_SIZE] = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
 //int a[SORT_SIZE] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
