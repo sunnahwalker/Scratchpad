@@ -79,7 +79,11 @@ void *test_func(void *threadid)
    pthread_exit(NULL);
 }
 
-int get_thread() {
+#ifdef CRITICAL_SECTION
+#pragma GCC push_options
+#pragma GCC optimize ("O0")
+#endif
+inline int get_thread() {
 	static int current_allocation = 0;
 
 	int allocated_thread = 0;
@@ -103,8 +107,11 @@ int get_thread() {
 	THREAD_PRINT("Allocated Thread: %d\n", allocated_thread);
 	return (allocated_thread);
 }
+#ifdef CRITICAL_SECTION
+#pragma GCC pop_options
+#endif
 
-void free_thread(int thread_id) {
+inline void free_thread(int thread_id) {
 
 	local_threads[thread_id].busy = false;
 	THREAD_PRINT("Free Thread: %d\n", thread_id);

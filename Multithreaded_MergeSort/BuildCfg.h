@@ -17,7 +17,12 @@ typedef enum {
 
 #define noUNIT_TEST_PRINTS
 
-#define MULTITHREAD
+#define MULTITHREAD					// Kill switch for Multithread
+
+#define SORT_PROFILING
+#ifdef SORT_PROFILING
+#define MAX_SORT_SAMPLES	1000
+#endif
 
 #ifdef MULTITHREAD
 #define	noGREEDY					// If there are huge pool of threads!
@@ -25,8 +30,8 @@ typedef enum {
 #define MULTITHREAD_MERGE			// Flag for seperate thread for Merging
 #endif
 
-#ifdef MULTITHREAD
-#define THREAD_PRINT(str,s...) //PRINTF(str,##s)
+#if defined(MULTITHREAD) && !defined(SORT_PROFILING)
+#define THREAD_PRINT(str,s...) PRINTF(str,##s)
 #else
 #define THREAD_PRINT(str,s...)
 #endif
