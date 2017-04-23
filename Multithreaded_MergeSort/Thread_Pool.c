@@ -15,7 +15,10 @@
 // Local includes (contains Global includes too!)
 #include "Thread_Pool.h"
 
+#ifdef CRITICAL_SECTION
 pthread_mutex_t  thread_alloc_mutex  =  PTHREAD_MUTEX_INITIALIZER;
+#endif
+
 thread_t local_threads[MAX_THREADS];
 
 void thread_init()
