@@ -27,7 +27,7 @@ typedef enum {
 #ifdef MULTITHREAD
 #define	noGREEDY					// If there are huge pool of threads!
 #define CRITICAL_SECTION			// Flag for Mutex
-#define MULTITHREAD_MERGE			// Flag for seperate thread for Merging
+#define MULTITHREAD_MERGE			// Flag for separate thread for Merging
 #endif
 
 #if defined(MULTITHREAD) && !defined(SORT_PROFILING)
