@@ -20,11 +20,9 @@
 #include "BuildCfg.h"
 #include "Thread_Pool.h"
 
-//#ifdef SORT_PROFILING
 const int unsorted_array[SORT_SIZE] = { 27, 14, 19, 26, 10, 31, 33, 44, 42, 35 };
 //const int unsorted_array[SORT_SIZE] = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
 //const int unsorted_array[SORT_SIZE] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-//#endif
 
 int a[SORT_SIZE] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 int b[SORT_SIZE] = {0};

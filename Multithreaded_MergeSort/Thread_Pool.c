@@ -93,7 +93,6 @@ inline int get_thread() {
 #ifdef CRITICAL_SECTION
 	pthread_mutex_lock(&thread_alloc_mutex);
 #endif
-	//printf("Current Allocation: %u (0x%X), MAX_THREAD: %u\n", current_allocation, current_allocation, MAX_THREADS);
 	assert(current_allocation < MAX_THREADS);
 	while(local_threads[current_allocation].busy == true) {
 		current_allocation = (current_allocation + 1) % MAX_THREADS;
@@ -102,8 +101,6 @@ inline int get_thread() {
 	allocated_thread = current_allocation++;
 	current_allocation %= MAX_THREADS;
 
-	//printf("Current Allocation After: %d, MAX_THREAD: %u\n", current_allocation, MAX_THREADS);
-	//printf("Allocated: %d\n", allocated_thread);
 	assert((local_threads[allocated_thread].busy == false) && (current_allocation < MAX_THREADS));
 
 	local_threads[allocated_thread].busy = true;
