@@ -5,7 +5,7 @@
 //		Author: Ahsan Uddin
 //		Date: March 9th, 2017
 //		Description:
-//			1. Create 1000 threads and do unit test on them
+//			1. Create threads twice the amount of sort size and do unit test on them
 //			2. Start merge sort using the threads
 //				a. Get new threads and use them for each new sort
 //				b. Once 2 sorts are done (wait for thread join), do merge
@@ -87,6 +87,11 @@ void *test_func(void *threadid)
 #pragma GCC optimize ("O0")
 #endif
 inline int get_thread() {
+
+#if (!defined(CRITICAL_SECTION) && (MAX_THREADS>127))
+#error BugFix TODO: current_allocation needs to be bigger than 8 bit and not corrupt!!!
+#endif
+
 	static int8_t current_allocation = 0;
 
 	int allocated_thread = 0;

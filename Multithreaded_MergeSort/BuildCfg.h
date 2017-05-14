@@ -9,8 +9,8 @@
 #define BUILDCFG_H_
 
 typedef enum {
-	STATUS_OK,
-	STATUS_ERROR
+	STATUS_OK = 0,
+	STATUS_ERROR = -1
 }Status_t;
 
 #define SORT_SIZE 10
